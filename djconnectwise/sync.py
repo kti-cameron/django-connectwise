@@ -1400,7 +1400,9 @@ class TicketSynchronizer(BatchConditionMixin, Synchronizer):
 
     def fetch_sync_by_id(self, instance_id):
         instance = super().fetch_sync_by_id(instance_id)
-        self.sync_related(instance)
+
+        if not instance.closed_flag:
+            self.sync_related(instance)
         return instance
 
 
